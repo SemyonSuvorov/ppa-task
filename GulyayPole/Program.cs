@@ -1,5 +1,6 @@
 ﻿using GulyayPole;
 
+
 var p = Misc.GetPlayers();
 while (true)
 {

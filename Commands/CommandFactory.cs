@@ -10,6 +10,7 @@ public static class CommandFactory
         {
             1 => new AttackCommand(player, enemy),
             2 => new ShowArmyCommand(player),
+            3 => new CloneUnitCommand(player),
             _ => new InvalidCommand()
         };
     }

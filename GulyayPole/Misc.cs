@@ -28,18 +28,18 @@ public class Misc
             player.ChooseArmy(ArmyFactory.GetArmyFactory(choice));
             
             Console.WriteLine($"{player.Name} has chosen their army.");
-            Thread.Sleep(1500);
+            //Thread.Sleep(1500);
             Console.Clear();
         }
         Console.Clear();
         return players;
     }
 
-    public static int TurnMenu()
+    private static int TurnMenu()
     {
         Console.WriteLine("1. Attack");
         Console.WriteLine("2. Show Army");
-        Console.WriteLine("3. Something else");
+        Console.WriteLine("3. Clone Unit");
         var s = Console.ReadLine();
         var c = int.TryParse(s, out var a);
         return !c ? 0 : a;
@@ -47,8 +47,8 @@ public class Misc
 
     public static void Turn(Player player, Player enemy)
     {
-        Console.WriteLine();
         Console.WriteLine($"{player.Name}'s turn!");
+        Console.WriteLine();
         while (true)
         {
             var command = CommandFactory.GetCommand(TurnMenu(), player, enemy);

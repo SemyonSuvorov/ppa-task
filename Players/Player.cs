@@ -3,13 +3,14 @@ using Army;
 
 public class Player
 {
-    private IArmy Army { get; set; }
+    public IArmy Army { get; set; }
     public string Name { get; }
 
     public Player(string name)
     {
         Name = name;
     }
+
     public void ChooseArmy(IArmyFactory armyFactory)
     {
         Army = armyFactory.CreateArmy();
@@ -17,6 +18,7 @@ public class Player
     public void DisplayArmy()
     {
         Console.WriteLine($"{Name}'s army.");
+        Console.WriteLine();
         Army.DisplayArmy();
     }
 
@@ -27,10 +29,10 @@ public class Player
     
     public void Attack(Player enemy)
     {
-        Console.WriteLine();
         Console.WriteLine($"{Name} attacks {enemy.Name}!");
-
+        //last unit attacks first
         var unitHpLeft = enemy.Army.Units[^1].TakeDamage(Army.Units[^1], "melee");
+        //range units attacks (if they can)
         for (var i = 0; i < Army.Units.Count-1; i++)
         {
             if (Army.Units[i].GetType().Name == "Archer" & Army.Units.Count - i <= 3)

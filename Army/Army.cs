@@ -5,7 +5,7 @@ namespace Army;
 public class Army : IArmy
 {
     public IList<IUnit> Units { get; private set; } = new List<IUnit>();
-
+    public bool HasMage { get; init; }
     public void DisplayArmy()
     {
         Console.WriteLine("Army contains:");

@@ -7,8 +7,8 @@ public class Mage : Unit
         Health = 100;
         MeleeAttackPower = 6;
         RangeAttackPower = 7;
-        DefencePower = 5;
+        DefencePower = 1;
         Cost = 150;
     }
-    //public I
+
 }

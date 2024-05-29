@@ -7,6 +7,7 @@ public abstract class Unit : IUnit
     public int RangeAttackPower { get; protected set; }
     public int DefencePower { get; protected set; }
     public int Cost { get; protected set; }
+
     
     public int TakeDamage(IUnit enemy, string typeOfAttack)
     {
