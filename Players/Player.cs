@@ -1,5 +1,6 @@
 ﻿namespace Players;
 using Army;
+using Units;
 
 public class Player
 {
@@ -30,6 +31,16 @@ public class Player
     public void Attack(Player enemy)
     {
         Console.WriteLine($"{Name} attacks {enemy.Name}!");
+        //buff
+        for (int i = 0; i < Army.Units.Count-1; i++)
+        {
+            if (Army.Units[i] is LightInfantry lightInfantry && Army.Units[i] is not Squire && Army.Units[i+1] is HeavyInfantry)
+            {
+                var squireDecorator = new Squire(lightInfantry);
+                squireDecorator.CheckAndApplyBuff(Army.Units, i);
+                Army.Units[i] = squireDecorator;
+            }
+        }
         //last unit melee attacks first
         var unitHpLeft = enemy.Army.Units[^1].TakeDamage(Army.Units[^1], "melee");
         //range units attacks (if they can)

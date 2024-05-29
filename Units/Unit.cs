@@ -28,6 +28,11 @@ public abstract class Unit : IUnit
         Console.WriteLine($"{GetType().Name}'s health left: {Health}");
         return Health;
     }
+
+    public void SetMeleeAttackPower(int power)
+    {
+        MeleeAttackPower = power;
+    }
     
     public void SetHealth(int health)
     {
