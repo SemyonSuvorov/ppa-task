@@ -30,12 +30,13 @@ public class Player
     public void Attack(Player enemy)
     {
         Console.WriteLine($"{Name} attacks {enemy.Name}!");
-        //last unit attacks first
+        //last unit melee attacks first
         var unitHpLeft = enemy.Army.Units[^1].TakeDamage(Army.Units[^1], "melee");
         //range units attacks (if they can)
         for (var i = 0; i < Army.Units.Count-1; i++)
         {
-            if (Army.Units[i].GetType().Name == "Archer" & Army.Units.Count - i <= 3)
+            var type = Army.Units[i].GetType().Name;
+            if ((type == "Archer" || type == "Mage") && Army.Units.Count - i <= 3)
             {
                 unitHpLeft = enemy.Army.Units[^1].TakeDamage(Army.Units[i], "range");
             }

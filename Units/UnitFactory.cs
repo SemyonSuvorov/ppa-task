@@ -10,6 +10,7 @@ public static class UnitFactory
             "archer" => new Archer(),
             "light" => new LightInfantry(),
             "mage" => new Mage(),
+            "healer" => new Healer(),
             _ => throw new ArgumentException("Invalid unit type")
         };
     }

@@ -10,6 +10,7 @@ public class BalancedArmyFactory : IArmyFactory
         army.Units.Add(UnitFactory.CreateUnit("archer"));
         army.Units.Add(UnitFactory.CreateUnit("archer"));
         army.Units.Add(UnitFactory.CreateUnit("light"));
+        army.Units.Add(UnitFactory.CreateUnit("healer"));
         army.Units.Add(UnitFactory.CreateUnit("heavy"));
         return army;
     }

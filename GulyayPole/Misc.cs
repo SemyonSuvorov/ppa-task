@@ -40,6 +40,7 @@ public class Misc
         Console.WriteLine("1. Attack");
         Console.WriteLine("2. Show Army");
         Console.WriteLine("3. Clone Unit");
+        Console.WriteLine("4. Heal Unit");
         var s = Console.ReadLine();
         var c = int.TryParse(s, out var a);
         return !c ? 0 : a;

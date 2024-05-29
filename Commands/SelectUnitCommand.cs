@@ -3,11 +3,11 @@ using Units;
 
 namespace GulyayPole;
 
-public class SelectMageCommand
+public class SelectUnitCommand<T> where T : IUnit
 {
     private readonly Player _player;
 
-    public SelectMageCommand(Player player)
+    public SelectUnitCommand(Player player)
     {
         _player = player;
     }
@@ -15,16 +15,16 @@ public class SelectMageCommand
     public int Execute()
     {
         var i = 1;
-        Console.WriteLine("Choose a mage:");
+        Console.WriteLine($"Choose a {typeof(T).Name}:");
         Console.WriteLine();
-        var mageIndexes = new List<int>();
+        var unitIndexes = new List<int>();
 
         foreach (var t in _player.Army.Units)
         {
-            if (t is Mage)
+            if (t is T)
             {
                 Console.WriteLine($"{i}: {t.GetType().Name} HP: {t.Health}");
-                mageIndexes.Add(i);
+                unitIndexes.Add(i);
             }
 
             i++;
@@ -33,6 +33,6 @@ public class SelectMageCommand
         var s = Console.ReadLine();
         var c = int.TryParse(s, out var a);
 
-        return !c || !mageIndexes.Contains(a) || a == _player.Army.Units.Count ? -1 : a - 1;
+        return !c || !unitIndexes.Contains(a) || a == _player.Army.Units.Count ? -1 : a - 1;
     }
 }

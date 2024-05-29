@@ -19,14 +19,13 @@ public class CloneUnitCommand: ICommand
 
         if (!_player.Army.Units.Any(unit => unit is Mage))
         {
-            Console.WriteLine();
             Console.WriteLine("You have no mage!");
             Console.WriteLine();
             _isTerminating = false;
             return;
         }
 
-        var selectMageCommand = new SelectMageCommand(_player);
+        var selectMageCommand = new SelectUnitCommand<Mage>(_player);
         var mageIndex = selectMageCommand.Execute();
 
         switch (mageIndex)
