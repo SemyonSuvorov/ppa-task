@@ -24,7 +24,7 @@ public class Army : IArmy
         
         foreach (var unit in Units)
         {
-            var name = unit.GetType().Name;
+            var name = unit.ToString();
             var hp = unit.Health.ToString();
             var defence = unit.DefencePower.ToString();
             var meleeAttack = unit.MeleeAttackPower.ToString();

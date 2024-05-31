@@ -15,4 +15,6 @@ public class LightInfantry : Unit, ICloneable
     {
         return MemberwiseClone();
     }
+
+    public override string ToString() => "Light Infantry";
 }

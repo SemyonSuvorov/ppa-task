@@ -10,4 +10,6 @@ public class HeavyInfantry : Unit
         DefencePower = 5;
         Cost = 100;
     }
+    public override string ToString() => "Heavy Infantry";
+
 }

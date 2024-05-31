@@ -16,7 +16,7 @@ public class Squire : Unit, ICloneable
     }
 
 
-    public void ApplyBuff(HeavyInfantry heavyInfantry)
+    private void ApplyBuff(IUnit heavyInfantry)
     {
         if (!_isBuffApplied)
         {
@@ -26,7 +26,7 @@ public class Squire : Unit, ICloneable
         }
     }
 
-    public void RemoveBuff(HeavyInfantry heavyInfantry)
+    private void RemoveBuff(IUnit heavyInfantry)
     {
         if (_isBuffApplied)
         {
@@ -38,19 +38,28 @@ public class Squire : Unit, ICloneable
 
     public void CheckAndApplyBuff(IList<IUnit> units, int index)
     {
-        if (index > 0 && units[index + 1] is HeavyInfantry heavyInfantry && !_isBuffApplied)
+        switch (index)
         {
-            ApplyBuff(heavyInfantry);
-        }
-        else
-        {
-            // remove buff in case TODO
-            foreach (var unit in units)
+            case > 0 when units[index + 1] is HeavyInfantry heavyInfantry && !_isBuffApplied:
+                ApplyBuff(heavyInfantry);
+                break;
+            case > 0 when units[index + 1] is UnitProxy proxy
+                          && proxy.GetUnit().ToString() == "Heavy Infantry"
+                          && !_isBuffApplied:
+                ApplyBuff(proxy);
+                break;
+            default:
             {
-                if (unit is HeavyInfantry hi)
+                // remove buff in case TODO
+                foreach (var unit in units)
                 {
-                    RemoveBuff(hi);
+                    if (unit is HeavyInfantry hi)
+                    {
+                        RemoveBuff(hi);
+                    }
                 }
+
+                break;
             }
         }
     }
@@ -58,4 +67,6 @@ public class Squire : Unit, ICloneable
     {
         return MemberwiseClone();
     }
+    public override string ToString() => "LI(Squire)";
+
 }

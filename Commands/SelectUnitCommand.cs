@@ -23,7 +23,7 @@ public class SelectUnitCommand<T> where T : IUnit
         {
             if (t is T)
             {
-                Console.WriteLine($"{i}: {t.GetType().Name} HP: {t.Health}");
+                Console.WriteLine($"{i}: {t} HP: {t.Health}");
                 unitIndexes.Add(i);
             }
 
@@ -32,7 +32,10 @@ public class SelectUnitCommand<T> where T : IUnit
 
         var s = Console.ReadLine();
         var c = int.TryParse(s, out var a);
-
+        if (typeof(T).Name == "IUnit" && a == _player.Army.Units.Count)
+        {
+            return a - 1;
+        }
         return !c || !unitIndexes.Contains(a) || a == _player.Army.Units.Count ? -1 : a - 1;
     }
 }

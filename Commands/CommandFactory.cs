@@ -1,3 +1,4 @@
+using Commands;
 using Players;
 
 namespace GulyayPole;
@@ -12,6 +13,7 @@ public static class CommandFactory
             2 => new ShowArmyCommand(player),
             3 => new CloneUnitCommand(player),
             4 => new HealUnitCommand(player),
+            5 => new LoggingCommand(player),
             _ => new InvalidCommand()
         };
     }

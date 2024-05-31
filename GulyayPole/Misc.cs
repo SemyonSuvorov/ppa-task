@@ -24,7 +24,7 @@ public class Misc
             Console.WriteLine("1. Balanced Army");
             Console.WriteLine("2. Agile Army");
 
-            var choice = int.Parse(Console.ReadLine());
+            var choice = int.Parse(Console.ReadLine() ?? string.Empty);
             player.ChooseArmy(ArmyFactory.GetArmyFactory(choice));
             
             Console.WriteLine($"{player.Name} has chosen their army.");
@@ -41,6 +41,7 @@ public class Misc
         Console.WriteLine("2. Show Army");
         Console.WriteLine("3. Clone Unit");
         Console.WriteLine("4. Heal Unit");
+        Console.WriteLine("5. Start/Stop Logging Unit");
         var s = Console.ReadLine();
         var c = int.TryParse(s, out var a);
         return !c ? 0 : a;

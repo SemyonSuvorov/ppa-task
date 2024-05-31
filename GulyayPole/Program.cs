@@ -1,6 +1,5 @@
 ﻿using GulyayPole;
 
-
 var p = Misc.GetPlayers();
 while (true)
 {
@@ -23,3 +22,4 @@ while (true)
     }
     Console.WriteLine($"The game is over! {players.Where(x => x.IsNotEmpty()).ToList()[0].Name} won!");
 }
+

@@ -15,5 +15,6 @@ public class Archer : Unit, ICloneable
     {
         return MemberwiseClone();
     }
-    
+    public override string ToString() => "Archer";
+
 }

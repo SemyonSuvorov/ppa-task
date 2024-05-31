@@ -32,30 +32,43 @@ public class Player
     {
         Console.WriteLine($"{Name} attacks {enemy.Name}!");
         //buff
-        for (int i = 0; i < Army.Units.Count-1; i++)
+        for (var i = 0; i < Army.Units.Count - 1; i++)
         {
-            if (Army.Units[i] is LightInfantry lightInfantry && Army.Units[i] is not Squire && Army.Units[i+1] is HeavyInfantry)
-            {
-                var squireDecorator = new Squire(lightInfantry);
-                squireDecorator.CheckAndApplyBuff(Army.Units, i);
-                Army.Units[i] = squireDecorator;
-            }
+            var currentUnit = Army.Units[i];
+            var nextUnit = Army.Units[i + 1];
+
+            if (currentUnit is not LightInfantry lightInfantry || currentUnit is Squire) continue;
+            var isNextUnitHeavyInfantry = nextUnit is HeavyInfantry || 
+                                          (nextUnit is UnitProxy proxy && proxy.GetUnit().ToString() == "Heavy Infantry");
+
+            if (!isNextUnitHeavyInfantry) continue;
+            var squireDecorator = new Squire(lightInfantry);
+            squireDecorator.CheckAndApplyBuff(Army.Units, i);
+            Army.Units[i] = squireDecorator;
         }
         //last unit melee attacks first
         var unitHpLeft = enemy.Army.Units[^1].TakeDamage(Army.Units[^1], "melee");
+        if (unitHpLeft == 0)
+        {
+            Console.WriteLine($"{enemy.Name}'s {enemy.Army.Units[^1]} is dead!");
+            enemy.Army.RemoveDeadUnits();
+            return;
+        }
         //range units attacks (if they can)
         for (var i = 0; i < Army.Units.Count-1; i++)
         {
-            var type = Army.Units[i].GetType().Name;
-            if ((type == "Archer" || type == "Mage") && Army.Units.Count - i <= 3)
+            var type = Army.Units[i].ToString();
+            if (type is "Archer" or "Mage" && Army.Units.Count - i <= 3)
             {
                 unitHpLeft = enemy.Army.Units[^1].TakeDamage(Army.Units[i], "range");
+                if (unitHpLeft == 0)
+                {
+                    Console.WriteLine($"{enemy.Name}'s {enemy.Army.Units[^1]} is dead!");
+                    enemy.Army.RemoveDeadUnits();
+                    return;
+                }
             }
         }
-        
-        if (unitHpLeft >= 1) return;
-        Console.WriteLine($"{enemy.Name}'s {enemy.Army.Units[^1].GetType().Name} is dead!");
-        enemy.Army.RemoveDeadUnits();
     }
     
 }
