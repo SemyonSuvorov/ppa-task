@@ -1,7 +1,6 @@
-using Commands;
 using Players;
 
-namespace GulyayPole;
+namespace Commands;
 
 public static class CommandFactory
 {

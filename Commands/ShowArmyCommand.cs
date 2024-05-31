@@ -1,6 +1,6 @@
 using Players;
 
-namespace GulyayPole;
+namespace Commands;
 
 
 public class ShowArmyCommand : ICommand

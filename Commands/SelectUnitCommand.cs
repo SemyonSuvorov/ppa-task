@@ -1,7 +1,7 @@
 using Players;
 using Units;
 
-namespace GulyayPole;
+namespace Commands;
 
 public class SelectUnitCommand<T> where T : IUnit
 {

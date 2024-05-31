@@ -11,5 +11,4 @@ public class Mage : Unit
         Cost = 150;
     }
     public override string ToString() => "Mage";
-
 }

@@ -10,6 +10,5 @@ public class Healer : Unit
         Cost = 150;
     }
     public override string ToString() => "Healer";
-    
 }
 

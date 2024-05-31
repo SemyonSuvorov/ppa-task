@@ -1,7 +1,6 @@
 ﻿using Players;
-using System.Reflection.Metadata.Ecma335;
 
-namespace GulyayPole;
+namespace Commands;
 
 public class SelectHealableUnitCommand
 {

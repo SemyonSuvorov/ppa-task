@@ -28,7 +28,6 @@ public abstract class Unit : IUnit
         Console.WriteLine($"{this}'s health left: {Health}");
         return Health;
     }
-
     public virtual void SetMeleeAttackPower(int power)
     {
         MeleeAttackPower = power;

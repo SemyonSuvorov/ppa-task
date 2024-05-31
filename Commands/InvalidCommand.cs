@@ -1,4 +1,4 @@
-namespace GulyayPole;
+namespace Commands;
 
 public class InvalidCommand : ICommand
 {

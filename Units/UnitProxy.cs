@@ -17,7 +17,6 @@ public class UnitProxy : Unit
         DefencePower = _unit.DefencePower;
         Cost = _unit.Cost;
     }
-    //public string[] Art => _unit.Art;
 
     public override int TakeDamage(IUnit enemy, string typeOfAttack)
     {

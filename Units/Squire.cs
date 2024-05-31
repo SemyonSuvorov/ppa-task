@@ -3,37 +3,32 @@
 //decorator
 public class Squire : Unit, ICloneable
 {
-    private readonly IUnit _lightInfantry;
     private bool _isBuffApplied;
 
     public Squire(IUnit lightInfantry)
     {
-        _lightInfantry = lightInfantry;
-        Health = _lightInfantry.Health;
-        DefencePower = _lightInfantry.DefencePower;
-        MeleeAttackPower = _lightInfantry.MeleeAttackPower;
-        Cost = _lightInfantry.Cost;
+        var lightInfantry1 = lightInfantry;
+        Health = lightInfantry1.Health;
+        DefencePower = lightInfantry1.DefencePower;
+        MeleeAttackPower = lightInfantry1.MeleeAttackPower;
+        Cost = lightInfantry1.Cost;
     }
 
 
     private void ApplyBuff(IUnit heavyInfantry)
     {
-        if (!_isBuffApplied)
-        {
-            heavyInfantry.SetMeleeAttackPower(heavyInfantry.MeleeAttackPower + 5);
-            _isBuffApplied = true;
-            Console.WriteLine("Light infantry buffs heavy infantry's attack power by 5.");
-        }
+        if (_isBuffApplied) return;
+        heavyInfantry.SetMeleeAttackPower(heavyInfantry.MeleeAttackPower + 5);
+        _isBuffApplied = true;
+        Console.WriteLine("Light infantry buffs heavy infantry's attack power by 5.");
     }
 
     private void RemoveBuff(IUnit heavyInfantry)
     {
-        if (_isBuffApplied)
-        {
-            heavyInfantry.SetMeleeAttackPower(heavyInfantry.MeleeAttackPower - 5);
-            _isBuffApplied = false;
-            Console.WriteLine("Light infantry removes buff from heavy infantry's attack power.");
-        }
+        if (!_isBuffApplied) return;
+        heavyInfantry.SetMeleeAttackPower(heavyInfantry.MeleeAttackPower - 5);
+        _isBuffApplied = false;
+        Console.WriteLine("Light infantry removes buff from heavy infantry's attack power.");
     }
 
     public void CheckAndApplyBuff(IList<IUnit> units, int index)

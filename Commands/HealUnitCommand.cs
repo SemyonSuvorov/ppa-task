@@ -1,17 +1,17 @@
 ﻿using Players;
 using Units;
 
-namespace GulyayPole;
+namespace Commands;
 
 public class HealUnitCommand : ICommand
 {
     private readonly Player _player;
-    private bool _isTerminating;
-    private int _healSize = 5;
+    private const int HealSize = 5;
+
     public HealUnitCommand(Player player)
     {
         _player = player;
-        _isTerminating = false;
+        IsTerminating = false;
     }
     public void Execute() 
     {
@@ -21,7 +21,7 @@ public class HealUnitCommand : ICommand
         {
             Console.WriteLine("You have no healer!");
             Console.WriteLine();
-            _isTerminating = false;
+            IsTerminating = false;
             return;
         }
 
@@ -34,13 +34,13 @@ public class HealUnitCommand : ICommand
                 Console.Clear();
                 Console.WriteLine("Invalid selection or Healer is in the front line.");
                 Console.WriteLine();
-                _isTerminating = false;
+                IsTerminating = false;
                 return;
             case 0:
                 Console.Clear();
                 Console.WriteLine("Healer can't heal while in the front line!");
                 Console.WriteLine();
-                _isTerminating = false;
+                IsTerminating = false;
                 return;
         }
 
@@ -53,30 +53,30 @@ public class HealUnitCommand : ICommand
             Console.Clear();
             Console.WriteLine("Invalid selection or no healable unit in range.");
             Console.WriteLine();
-            _isTerminating = false;
+            IsTerminating = false;
             return;
         }
 
-        if (_player.Army.Units[healerIndex] is not Healer healer) return;
+        if (_player.Army.Units[healerIndex] is not Healer) return;
         if (_player.Army.Units[healIndex] is not Unit target) return;
         Console.Clear();
-        int amount = 0;
+        var amount = 0;
         if(target.Health < 100)
         {
-            target.SetHealth(target.Health + _healSize);
+            target.SetHealth(target.Health + HealSize);
             if(target.Health > 100)
             {
-                amount = _healSize - (target.Health - 100);
+                amount = HealSize - (target.Health - 100);
             }
             else
             {
-                amount = _healSize;
+                amount = HealSize;
             }
         }
         Console.WriteLine($"Healer has healed {target.GetType().Name} by {amount} HP");
         Console.WriteLine($"Current {target.GetType().Name} HP = {target.Health}");
-        _isTerminating = true;
+        IsTerminating = true;
     }
-    public bool IsTerminating => _isTerminating;
+    public bool IsTerminating { get; private set; }
 }
 

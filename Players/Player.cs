@@ -4,7 +4,7 @@ using Units;
 
 public class Player
 {
-    public IArmy Army { get; set; }
+    public IArmy Army { get; private set; }
     public string Name { get; }
 
     public Player(string name)
@@ -58,16 +58,12 @@ public class Player
         for (var i = 0; i < Army.Units.Count-1; i++)
         {
             var type = Army.Units[i].ToString();
-            if (type is "Archer" or "Mage" && Army.Units.Count - i <= 3)
-            {
-                unitHpLeft = enemy.Army.Units[^1].TakeDamage(Army.Units[i], "range");
-                if (unitHpLeft == 0)
-                {
-                    Console.WriteLine($"{enemy.Name}'s {enemy.Army.Units[^1]} is dead!");
-                    enemy.Army.RemoveDeadUnits();
-                    return;
-                }
-            }
+            if (type is not ("Archer" or "Mage") || Army.Units.Count - i > 3) continue;
+            unitHpLeft = enemy.Army.Units[^1].TakeDamage(Army.Units[i], "range");
+            if (unitHpLeft != 0) continue;
+            Console.WriteLine($"{enemy.Name}'s {enemy.Army.Units[^1]} is dead!");
+            enemy.Army.RemoveDeadUnits();
+            return;
         }
     }
     

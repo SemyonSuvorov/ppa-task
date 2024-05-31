@@ -1,8 +1,9 @@
+using Commands;
 using Players;
 
 namespace GulyayPole;
 
-public class Misc
+public abstract class Misc
 {
     public static List<Player> GetPlayers()
     {
@@ -11,7 +12,7 @@ public class Misc
         Console.WriteLine();
         Console.WriteLine("Player 2, please enter your name:");
         var secondName = Console.ReadLine();
-        var players = new List<Player> { new Player(firstName), new Player(secondName) };
+        var players = new List<Player> { new (firstName), new (secondName) };
         Console.Clear();
         return players;
     }
@@ -54,18 +55,9 @@ public class Misc
         while (true)
         {
             var command = CommandFactory.GetCommand(TurnMenu(), player, enemy);
-            if (command != null)
-            {
-                command.Execute();
-                if (command.IsTerminating)
-                    break;
-            }
-            else
-            {
-                Console.Clear();
-                Console.WriteLine("Invalid Input!");
-                Console.WriteLine();
-            }
+            command.Execute();
+            if (command.IsTerminating)
+                break;
         }
     }
 }
